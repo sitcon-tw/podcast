@@ -1,0 +1,26 @@
+body {
+	background: #00FEE8;
+	margin: 0;
+	padding: 0;
+}
+
+.Rainbow {
+	width: 100%;
+	height: auto;
+	position: fixed;
+	z-index: -1;
+}
+
+.logo {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+
+}
+
+.logoItem {
+	width: 65%;
+	height: auto;
+	position: absolute;
+	margin-top: 5rem;
+}
