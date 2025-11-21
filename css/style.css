@@ -23,7 +23,7 @@ body {
 	background: white;
 	border-radius: 1rem;
 	width: 90%;
-	max-width: 600px;
+	max-width: 500px;
 	height: auto;
 	margin: 0 auto 1.5rem;
 	padding: 1.5rem;
@@ -80,7 +80,7 @@ body {
 	max-width: 500px;
 }
 
-.linkBlock {
+#linkBlock {
 	background: white;
 	border-radius: 1rem;
 	width: 50%;
@@ -107,6 +107,14 @@ body {
 	transform: scale(1.2);
 }
 
+.podcastLink {
+	display: flex;
+	align-items: center;
+	padding-top: 1rem;
+	gap: clamp(0.8rem, 1vw, 1.5rem);
+
+}
+
 
 
 /* RWD - Large Desktop */
@@ -118,7 +126,7 @@ body {
 
 /* RWD - Medium Tablet to Small Desktop */
 @media (max-width: 1024px) {
-	.linkBlock {
+	#linkBlock {
 		width: 60%;
 	}
 }
@@ -133,7 +141,7 @@ body {
 		max-width: 400px;
 	}
 
-	.linkBlock {
+	#linkBlock {
 		width: 70%;
 		min-width: 320px;
 	}
@@ -157,7 +165,7 @@ body {
 		max-width: 350px;
 	}
 
-	.linkBlock {
+	#linkBlock {
 		width: 85%;
 		min-width: 280px;
 		padding: 1rem 0.8rem;
@@ -197,7 +205,7 @@ body {
 		max-width: 280px;
 	}
 
-	.linkBlock {
+	#linkBlock {
 		width: 90%;
 		min-width: 260px;
 		padding: 0.8rem 0.5rem;
@@ -225,4 +233,25 @@ body {
 	.container {
 		padding: 0 0.5rem 1rem;
 	}
+}
+
+
+/* Styles extracted from inline <style> in index.html */
+.podcast {
+	margin-bottom: 20px;
+}
+
+#podcastList {
+	min-height: 100px;
+}
+
+.loading-spinner {
+	text-align: center;
+	padding: 20px;
+}
+
+.error-message {
+	text-align: center;
+	padding: 20px;
+	color: #e74c3c;
 }

@@ -13,49 +13,39 @@
 	<div class="container">
 		<div class='logo'>
 			<img src="public/logo.svg" class="logoMain">
-			<!-- <img src="public/logoJet.svg" class='logoJet'> -->
-			<!-- <img src="public/logoText.svg" class='logoTExt'> -->
 		</div>
 
-		<div class="linkBlock">
-			<a href="#" class="linkIcon">
+		<div id="linkBlock">
+			<a href="https://open.spotify.com/show/YOUR_SHOW_ID" class="linkIcon" target="_blank"
+				rel="noopener noreferrer">
 				<img src="public/icons/spotify.svg" alt="Spotify">
 			</a>
-			<a href="#" class="linkIcon">
+			<a href="https://podcasts.apple.com/YOUR_PODCAST_ID" class="linkIcon" target="_blank"
+				rel="noopener noreferrer">
 				<img src="public/icons/podcast.svg" alt="Apple Podcast">
 			</a>
-			<a href="#" class="linkIcon">
+			<a href="https://www.youtube.com/@SITCON" class="linkIcon" target="_blank" rel="noopener noreferrer">
 				<img src="public/icons/youtube.svg" alt="YouTube">
 			</a>
-			<a href="#" class="linkIcon">
+			<a href="https://player.soundon.fm/p/429de7c0-0c71-4fc9-a2a3-fcc3a651988e" class="linkIcon" target="_blank"
+				rel="noopener noreferrer">
 				<img src="public/icons/soundon.svg" alt="SoundOn">
 			</a>
-			<a href="#" class="linkIcon">
+			<a href="https://feeds.soundon.fm/podcasts/429de7c0-0c71-4fc9-a2a3-fcc3a651988e.xml" class="linkIcon"
+				target="_blank" rel="noopener noreferrer">
 				<img src="public/icons/rss.svg" alt="RSS">
 			</a>
 		</div>
 
-		<div class="podcast">
-			<p id='date'>2025/5/12・122M</p>
-
-			<p>S1 EP02 | 有一個酷酷想法，你也可以站上中研院舞台！ 議程組大揭密與投稿秘訣大公開！ft.議程組、FKT、Harry</p>
-		</div>
-		<div class="podcast">
-			<p id='date'>2025/5/12・122M</p>
-
-			<p>S1 EP02 | 有一個酷酷想法，你也可以站上中研院舞台！ 議程組大揭密與投稿秘訣大公開！ft.議程組、FKT、Harry</p>
-		</div>
-		<div class="podcast">
-			<p id='date'>2025/5/12・122M</p>
-
-			<p>S1 EP02 | 有一個酷酷想法，你也可以站上中研院舞台！ 議程組大揭密與投稿秘訣大公開！ft.議程組、FKT、Harry</p>
+		<!-- Podcast 列表將由 JavaScript 動態生成 -->
+		<div id="podcastList">
+			<div class="loading-spinner">載入中...</div>
 		</div>
 
 	</div>
 	<img src="public/Cloud.svg" class="Cloud">
-	<!-- <div class="footer"> -->
-	<!-- 	© SITCON 2026 -->
-	<!-- </div> -->
+
+	<script src="js/main.js" defer></script>
 </body>
 
 </html>
