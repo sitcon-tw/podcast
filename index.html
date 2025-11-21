@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>SITCON - Podcast</title>
 	<link href="css/style.css" rel="stylesheet">
+	<script src="js/main.js" defer></script>
 </head>
 
 <body>
@@ -16,19 +17,16 @@
 		</div>
 
 		<div id="linkBlock">
-			<a href="https://open.spotify.com/show/YOUR_SHOW_ID" class="linkIcon" target="_blank"
-				rel="noopener noreferrer">
+			<a href="http://sitcon.org/podcast" class="linkIcon" target="_blank" rel="noopener noreferrer">
 				<img src="public/icons/spotify.svg" alt="Spotify">
 			</a>
-			<a href="https://podcasts.apple.com/YOUR_PODCAST_ID" class="linkIcon" target="_blank"
-				rel="noopener noreferrer">
+			<a href="http://sitcon.org/podcast-ap" class="linkIcon" target="_blank" rel="noopener noreferrer">
 				<img src="public/icons/podcast.svg" alt="Apple Podcast">
 			</a>
-			<a href="https://www.youtube.com/@SITCON" class="linkIcon" target="_blank" rel="noopener noreferrer">
+			<a href="http://sitcon.org/podcast-yt" class="linkIcon" target="_blank" rel="noopener noreferrer">
 				<img src="public/icons/youtube.svg" alt="YouTube">
 			</a>
-			<a href="https://player.soundon.fm/p/429de7c0-0c71-4fc9-a2a3-fcc3a651988e" class="linkIcon" target="_blank"
-				rel="noopener noreferrer">
+			<a href="http://sitcon.org/podcast-sd" class="linkIcon" target="_blank" rel="noopener noreferrer">
 				<img src="public/icons/soundon.svg" alt="SoundOn">
 			</a>
 			<a href="https://feeds.soundon.fm/podcasts/429de7c0-0c71-4fc9-a2a3-fcc3a651988e.xml" class="linkIcon"
@@ -37,7 +35,6 @@
 			</a>
 		</div>
 
-		<!-- Podcast 列表將由 JavaScript 動態生成 -->
 		<div id="podcastList">
 			<div class="loading-spinner">載入中...</div>
 		</div>
@@ -45,7 +42,10 @@
 	</div>
 	<img src="public/Cloud.svg" class="Cloud">
 
-	<script src="js/main.js" defer></script>
+	<div class="footer">
+
+		© SITCON 2026
+	</div>
 </body>
 
 </html>
