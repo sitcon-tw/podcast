@@ -1,4 +1,3 @@
-// Extracted from inline script in index.html
 const RSS_FEED_URL = 'https://feeds.soundon.fm/podcasts/429de7c0-0c71-4fc9-a2a3-fcc3a651988e.xml';
 const SPOTIFY_RSS_URL = 'https://fetchrss.com/feed/aSKjwDPSDZTyaSKjkF7Yp38C.rss';
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
@@ -59,10 +58,22 @@ function getTextContent(element, selector, defaultValue = '') {
 }
 
 const PODCAST_PLATFORMS = {
-	spotify: 'http://sitcon.org/podcast',
-	apple: 'https://podcasts.apple.com/podcast/idYOUR_PODCAST_ID',
-	youtube: 'https://youtube.com/@YOUR_CHANNEL'
+	spotify: 'https://sitcon.org/podcast',
+	apple: 'https://sitcon.org/podcast-ap',
+	youtube: 'https://sitcon.org/podcast-yt',
 };
+
+function generateSearchUrl(platform, title) {
+	const searchQuery = encodeURIComponent(title);
+	switch (platform) {
+		case 'youtube':
+			return `https://www.youtube.com/results?search_query=${searchQuery}`;
+		case 'apple':
+			return `https://podcasts.apple.com/search?term=${searchQuery}`;
+		default:
+			return PODCAST_PLATFORMS[platform];
+	}
+}
 
 async function loadSpotifyLinks() {
 	try {
@@ -116,9 +127,10 @@ function createPodcastElement(item, spotifyLinks) {
 		dateTimeText += `・${formattedDuration}`;
 	}
 
-	// 嘗試從 Spotify RSS 找到對應的連結
 	const cleanTitle = title.trim().toLowerCase();
 	const spotifyLink = spotifyLinks[cleanTitle] || PODCAST_PLATFORMS.spotify;
+	const youtubeLink = generateSearchUrl('youtube', title);
+	const appleLink = generateSearchUrl('apple', title);
 
 	const podcastDiv = document.createElement('div');
 	podcastDiv.className = 'podcast';
@@ -130,10 +142,10 @@ function createPodcastElement(item, spotifyLinks) {
             <a href="${spotifyLink}" class="" target="_blank" rel="noopener noreferrer" title="Spotify">
                 <img src="public/icons/spotify.svg" alt="Spotify">
             </a>
-            <a href="${PODCAST_PLATFORMS.apple}" class="" target="_blank" rel="noopener noreferrer" title="Apple Podcast">
+            <a href="${appleLink}" class="" target="_blank" rel="noopener noreferrer" title="Apple Podcast">
                 <img src="public/icons/podcast.svg" alt="Apple Podcast">
             </a>
-            <a href="${PODCAST_PLATFORMS.youtube}" class="" target="_blank" rel="noopener noreferrer" title="YouTube">
+            <a href="${youtubeLink}" class="" target="_blank" rel="noopener noreferrer" title="YouTube">
                 <img src="public/icons/youtube.svg" alt="YouTube">
             </a>
             <a href="${link}" class="" target="_blank" rel="noopener noreferrer" title="SoundOn">
