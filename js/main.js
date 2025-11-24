@@ -1,5 +1,6 @@
 // Extracted from inline script in index.html
 const RSS_FEED_URL = 'https://feeds.soundon.fm/podcasts/429de7c0-0c71-4fc9-a2a3-fcc3a651988e.xml';
+const SPOTIFY_RSS_URL = 'https://fetchrss.com/feed/aSKjwDPSDZTyaSKjkF7Yp38C.rss';
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 function formatDate(dateString) {
@@ -57,7 +58,48 @@ function getTextContent(element, selector, defaultValue = '') {
 	}
 }
 
-function createPodcastElement(item) {
+const PODCAST_PLATFORMS = {
+	spotify: 'http://sitcon.org/podcast',
+	apple: 'https://podcasts.apple.com/podcast/idYOUR_PODCAST_ID',
+	youtube: 'https://youtube.com/@YOUR_CHANNEL'
+};
+
+async function loadSpotifyLinks() {
+	try {
+		const response = await fetch(`${CORS_PROXY}${encodeURIComponent(SPOTIFY_RSS_URL)}`);
+
+		if (!response.ok) {
+			console.warn('無法載入 Spotify RSS');
+			return {};
+		}
+
+		const text = await response.text();
+		const parser = new DOMParser();
+		const xmlDoc = parser.parseFromString(text, 'text/xml');
+
+		const items = xmlDoc.querySelectorAll('item');
+		const spotifyMap = {};
+
+		items.forEach((item) => {
+			const title = getTextContent(item, 'title');
+			const link = getTextContent(item, 'link');
+
+			if (title && link) {
+				const cleanTitle = title.trim().toLowerCase();
+				spotifyMap[cleanTitle] = link;
+			}
+		});
+
+		console.log(`成功載入 ${Object.keys(spotifyMap).length} 個 Spotify 連結`);
+		return spotifyMap;
+
+	} catch (error) {
+		console.error('載入 Spotify RSS 失敗:', error);
+		return {};
+	}
+}
+
+function createPodcastElement(item, spotifyLinks) {
 	const title = getTextContent(item, 'title');
 	const pubDate = getTextContent(item, 'pubDate');
 	const link = getTextContent(item, 'link', '#');
@@ -74,6 +116,10 @@ function createPodcastElement(item) {
 		dateTimeText += `・${formattedDuration}`;
 	}
 
+	// 嘗試從 Spotify RSS 找到對應的連結
+	const cleanTitle = title.trim().toLowerCase();
+	const spotifyLink = spotifyLinks[cleanTitle] || PODCAST_PLATFORMS.spotify;
+
 	const podcastDiv = document.createElement('div');
 	podcastDiv.className = 'podcast';
 
@@ -81,13 +127,13 @@ function createPodcastElement(item) {
         <p id='date'>${dateTimeText}</p>
         <p>${title}</p>
         <div class="podcastLink">
-            <a href="#" class="" title="Spotify">
+            <a href="${spotifyLink}" class="" target="_blank" rel="noopener noreferrer" title="Spotify">
                 <img src="public/icons/spotify.svg" alt="Spotify">
             </a>
-            <a href="#" class="" title="Apple Podcast">
+            <a href="${PODCAST_PLATFORMS.apple}" class="" target="_blank" rel="noopener noreferrer" title="Apple Podcast">
                 <img src="public/icons/podcast.svg" alt="Apple Podcast">
             </a>
-            <a href="#" class="" title="YouTube">
+            <a href="${PODCAST_PLATFORMS.youtube}" class="" target="_blank" rel="noopener noreferrer" title="YouTube">
                 <img src="public/icons/youtube.svg" alt="YouTube">
             </a>
             <a href="${link}" class="" target="_blank" rel="noopener noreferrer" title="SoundOn">
@@ -105,7 +151,10 @@ async function loadPodcasts() {
 	try {
 		podcastListDiv.innerHTML = '<div class="loading-spinner">載入中...</div>';
 
-		const response = await fetch(`${CORS_PROXY}${encodeURIComponent(RSS_FEED_URL)}`);
+		const [spotifyLinks, response] = await Promise.all([
+			loadSpotifyLinks(),
+			fetch(`${CORS_PROXY}${encodeURIComponent(RSS_FEED_URL)}`)
+		]);
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
@@ -132,7 +181,7 @@ async function loadPodcasts() {
 
 		items.forEach((item) => {
 			try {
-				const podcastElement = createPodcastElement(item);
+				const podcastElement = createPodcastElement(item, spotifyLinks);
 				podcastListDiv.appendChild(podcastElement);
 			} catch (error) {
 				console.error('建立 podcast 元素時發生錯誤:', error);
