@@ -1,6 +1,5 @@
-// Extracted from inline script in index.html
 const RSS_FEED_URL = 'https://feeds.soundon.fm/podcasts/429de7c0-0c71-4fc9-a2a3-fcc3a651988e.xml';
-const SPOTIFY_RSS_URL = 'https://fetchrss.com/feed/aSKjwDPSDZTyaSKjkF7Yp38C.rss';
+const SPOTIFY_RSS_URL = 'https://anchor.fm/s/10a17491c/podcast/rss';
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 function formatDate(dateString) {
@@ -82,11 +81,26 @@ async function loadSpotifyLinks() {
 
 		items.forEach((item) => {
 			const title = getTextContent(item, 'title');
-			const link = getTextContent(item, 'link');
+
+			let link = getTextContent(item, 'link');
+
+			if (!link.includes('spotify.com')) {
+				const guid = getTextContent(item, 'guid');
+				if (guid && guid.includes('spotify.com')) {
+					link = guid;
+				}
+
+				const description = getTextContent(item, 'description');
+				const spotifyMatch = description.match(/https:\/\/[^\s"'<>]*spotify\.com[^\s"'<>]*/);
+				if (spotifyMatch) {
+					link = spotifyMatch[0];
+				}
+			}
 
 			if (title && link) {
 				const cleanTitle = title.trim().toLowerCase();
 				spotifyMap[cleanTitle] = link;
+				console.log(`找到 Spotify 連結: ${title} -> ${link}`);
 			}
 		});
 
