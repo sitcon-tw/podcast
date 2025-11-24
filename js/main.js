@@ -58,7 +58,7 @@ function getTextContent(element, selector, defaultValue = '') {
 }
 
 const PODCAST_PLATFORMS = {
-	spotify: 'https://sitcon.org/podcast',
+	spotify: 'https://sitcon.org/podcast-sp',
 	apple: 'https://sitcon.org/podcast-ap',
 	youtube: 'https://sitcon.org/podcast-yt',
 };
