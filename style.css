@@ -1,0 +1,198 @@
+@import url("https://font.emtech.cc/css/XiaoLai/400");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #00fee8;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  font-family: "XiaoLai", sans-serif;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+footer {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#podcastList {
+  padding-inline: 0.5rem;
+}
+
+.podcast {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#date {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0 0 0.5rem 0;
+}
+
+.podcast p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.podcast p:not(#date) {
+  font-size: 1rem;
+}
+
+#linkBlock {
+  background: #fff;
+  border-radius: 1rem;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1.2rem 1rem;
+  gap: clamp(0.8rem, 3vw, 1.5rem);
+  margin: 2rem auto 2rem;
+}
+
+.linkIcon img {
+  width: 2.5rem;
+  height: auto;
+  display: block;
+}
+
+.linkIcon {
+  transition: transform 0.3s ease;
+}
+
+.linkIcon:hover {
+  transform: scale(1.2);
+}
+
+.podcastLink {
+  display: flex;
+  align-items: center;
+  padding-top: 1rem;
+  gap: clamp(0.8rem, 1vw, 1.5rem);
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 20px;
+}
+
+.error-message {
+  text-align: center;
+  padding: 20px;
+  color: #e74c3c;
+}
+
+.Rainbow {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+  animation: revealRainbow 2s ease-out forwards;
+  clip-path: inset(0 100% 0 0);
+}
+
+@keyframes revealRainbow {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.Cloud {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+header {
+  position: relative;
+  height: var(--width);
+  --width: min(600px, calc(100vw - 2rem));
+}
+
+.header-text,
+.header-jet,
+.header-flame {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header-text {
+  width: var(--width);
+  animation: scaleIn 0.5s ease-out forwards;
+  transform: scale(0) translate(-50%, -50%);
+  transform-origin: top left;
+}
+
+@keyframes scaleIn {
+  to {
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+.header-jet {
+  animation: flyIn 1s ease-out forwards, floatJet 3s ease-in-out infinite;
+  left: 0;
+}
+@keyframes flyIn {
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes floatJet {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-10px);
+  }
+}
+
+.header-body {
+  width: calc(var(--width) * 0.7);
+}
+
+.header-flame {
+  width: calc(var(--width) * 0.2);
+  left: 5%;
+  top: 55%;
+  z-index: -1;
+  animation: flameFlicker 0.5s ease-in-out infinite;
+}
+
+@keyframes flameFlicker {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scaleY(0.85);
+    filter: brightness(0.99);
+  }
+  50% {
+    transform: translate(-50%, -50%) scaleY(1.1);
+    filter: brightness(1.01);
+  }
+}
