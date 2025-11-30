@@ -158,7 +158,9 @@ header {
 }
 
 .header-jet {
-	animation: flyIn 1s ease-out forwards, floatJet 3s ease-in-out infinite;
+	animation:
+		flyIn 1s ease-out forwards,
+		floatJet 3s ease-in-out infinite;
 	left: 0;
 }
 
@@ -169,7 +171,6 @@ header {
 }
 
 @keyframes floatJet {
-
 	0%,
 	100% {
 		transform: translate(-50%, -50%) translateY(0);
@@ -193,7 +194,6 @@ header {
 }
 
 @keyframes flameFlicker {
-
 	0%,
 	100% {
 		transform: translate(-50%, -50%) scaleY(0.85);
